@@ -10,8 +10,10 @@ const Album = () => {
   // Use State for Images.
   const [images, setImages] = useState([]);
   const [limit, setLimit] = useState(10);
+
   // API
   const api = "https://jsonplaceholder.typicode.com/photos";
+
   // On Mount Call API & Filter Data
   useEffect(() => {
     fetchImages();
@@ -42,6 +44,7 @@ const Album = () => {
         .catch((err) => console.log(err));
   }
 
+  // Handle Load More Button to show 10 more until 50 max
   const handleShowMoreImages = (e) => {
     e.preventDefault();
     if(limit < max) {
