@@ -11,9 +11,12 @@
 # production
 /build
 /dist
+/test-results
+/playwright-report
 
 # misc
 .DS_Store
+.eslintcache
 .env.local
 .env.development.local
 .env.test.local
