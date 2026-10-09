@@ -1,5 +1,3 @@
-import React from "react";
-
 // Components
 import NavBar from './components/Navbar';
 import Album from './components/Album';
