@@ -2,16 +2,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import Album from "./Album";
 
-vi.mock("@mui/material", () => ({
-  Button: ({ children, ...props }) => <button {...props}>{children}</button>,
-  Grid: ({ children }) => <div>{children}</div>,
-}));
-
-const photos = Array.from({ length: 24 }, (_, index) => ({
+const photos = Array.from({ length: 50 }, (_, index) => ({
   id: index + 1,
-  albumId: index + 1,
-  title: `Photo ${index + 1}`,
-  url: `https://example.test/${index + 1}.jpg`,
+  albumId: (index + 1) * 2,
+  title: `Gallery image ${index + 1}`,
+  url: `/images/gallery-tile.svg?image=${index + 1}`,
+  category: ["Landscape", "Portrait", "Street", "Architecture", "Nature"][index % 5],
+  location: "Studio",
+  photographer: "FRAME",
+  aspect: "square",
 }));
 
 const successfulResponse = (data = photos) => ({
@@ -30,45 +29,57 @@ describe("Album", () => {
     vi.clearAllMocks();
   });
 
-  it("loads and displays one image from each even album", async () => {
+  it("loads the first local fixture page with descriptive image names", async () => {
     fetch.mockResolvedValue(successfulResponse());
 
-    render(<Album />);
+    render(<Album searchQuery="" onSearchChange={() => {}} />);
 
-    expect(await screen.findByAltText("Photo 2")).toBeInTheDocument();
+    expect(await screen.findByAltText("Gallery image 1")).toBeInTheDocument();
     expect(screen.getAllByRole("img")).toHaveLength(10);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith("/data/gallery.json", expect.any(Object));
   });
 
-  it("does not refetch when Load More changes only the display limit", async () => {
+  it("loads the next bounded page when Load More changes the display limit", async () => {
     fetch.mockResolvedValue(successfulResponse());
 
-    render(<Album />);
+    render(<Album searchQuery="" onSearchChange={() => {}} />);
 
-    await screen.findByAltText("Photo 2");
+    await screen.findByAltText("Gallery image 1");
     fireEvent.click(screen.getByRole("button", { name: "Load More" }));
 
-    expect(screen.getAllByRole("img")).toHaveLength(12);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(await screen.findByAltText("Gallery image 20")).toBeInTheDocument();
+    expect(screen.getAllByRole("img")).toHaveLength(20);
+    expect(fetch).toHaveBeenCalledTimes(2);
   });
 
-  it("shows an error and retries after a failed request", async () => {
+  it("announces an error and retries after a local data failure", async () => {
     fetch
       .mockRejectedValueOnce(new Error("network unavailable"))
       .mockResolvedValueOnce(successfulResponse());
 
-    render(<Album />);
+    render(<Album searchQuery="" onSearchChange={() => {}} />);
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Unable to load images. Please try again."
     );
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
-    expect(await screen.findByAltText("Photo 2")).toBeInTheDocument();
+    expect(await screen.findByAltText("Gallery image 1")).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledTimes(2);
   });
 
-  it("aborts the active request on unmount and ignores its stale response", async () => {
+  it("replaces a failed image with an accessible placeholder", async () => {
+    fetch.mockResolvedValue(successfulResponse());
+
+    render(<Album searchQuery="" onSearchChange={() => {}} />);
+    fireEvent.error(await screen.findByAltText("Gallery image 1"));
+
+    expect(
+      screen.getByRole("img", { name: "Image unavailable: Gallery image 1" })
+    ).toHaveTextContent("Image unavailable");
+  });
+
+  it("aborts the active local data request on unmount", async () => {
     let resolveRequest;
     fetch.mockImplementation(
       () =>
@@ -77,7 +88,7 @@ describe("Album", () => {
         })
     );
 
-    const { unmount } = render(<Album />);
+    const { unmount } = render(<Album searchQuery="" onSearchChange={() => {}} />);
     const signal = fetch.mock.calls[0][1].signal;
 
     unmount();

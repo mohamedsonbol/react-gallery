@@ -1,15 +1,1 @@
-import { AppBar, Toolbar, Typography} from '@mui/material';
-
-const NavBar = () => {
-    return (
-        <AppBar>
-            <Toolbar>
-                <Typography variant="h6">
-                    Image Gallery App
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    )
-}
-
-export default NavBar;
+export { default } from "./Header";
