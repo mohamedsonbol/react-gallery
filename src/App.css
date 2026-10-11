@@ -1,3 +1,7 @@
+/* Legacy image utility kept for gallery tiles and tests */
 .albumImg {
-    width: 100%;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
 }

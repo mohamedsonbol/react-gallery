@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# React Gallery
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small React 19/Vite static gallery. It displays 50 versioned local fixture records in pages of ten and has no runtime dependency on JSONPlaceholder or another external API.
 
-## Available Scripts
+## Requirements and local use
 
-In the project directory, you can run:
+Use the Node and npm versions in `.nvmrc`:
 
-### `npm start`
+```bash
+nvm use
+npm ci
+npm run dev
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Useful checks:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm run lint
+npm run test:ci
+npm run build
+npm run test:e2e
+npm audit
+npm audit --omit=dev
+```
 
-### `npm test`
+`npm run test:e2e` builds the production artifact and runs Playwright in Chromium. Install the browser once when needed with `npx playwright install --with-deps chromium`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Data and image behavior
 
-### `npm run build`
+`public/data/gallery.json` is the controlled, versioned source of gallery metadata. `src/data/galleryFixtures.js` requests that same-origin file and returns one 10-item slice at a time, up to 50 items. The static SVG image is local too. Consequently, JSONPlaceholder availability cannot affect production behavior.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If the local fixture request fails, the gallery announces an error and exposes Retry. Each image reserves a 1:1 space and is lazy-loaded after the first three; a failed image is replaced with an accessible “Image unavailable” tile rather than leaving a broken-image icon or shifting the grid.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For a future product that needs live, user-managed imagery, replace the fixture loader with a maintained, authenticated gallery API rather than restoring a public demo API. That change should define schema validation, pagination, ownership, CDN/image transformations, availability monitoring, and cache invalidation.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Static deployment (Netlify)
 
-### `npm run eject`
+`netlify.toml` configures Netlify to run `npm run build` and publish `dist/`. It sets immutable caching for Vite’s hashed `/assets/*` files, a five-minute cache for the editable gallery JSON, and a one-day cache for local images.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Deploy at the site root. The application deliberately uses root-relative static paths (`/data/gallery.json`, `/images/gallery-tile.svg`, `/favicon.ico`, and `/manifest.json`), so subpath hosting such as `example.com/gallery/` is unsupported unless `vite.config.js`, data URLs, and browser tests are changed together. There is no client-side router; a normal static 404 policy is sufficient.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Before publishing, use a clean checkout and run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm ci
+npm run lint
+npm run test:ci
+npm run build
+npm audit
+npm audit --omit=dev
+npx playwright install --with-deps chromium
+npm run test:e2e
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Upload only the generated `dist/` directory. Do not upload `.env` files, `node_modules`, source files, or test reports. No runtime environment variables or secrets are required by the current application.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+After deployment, confirm HTTP 200 for `/`, `/data/gallery.json`, and `/images/gallery-tile.svg?image=1`, then verify the first ten tiles and Load More in the deployed browser.

@@ -1,0 +1,56 @@
+# Photo credits
+
+All photographs are sourced from [Unsplash](https://unsplash.com) and used under the [Unsplash License](https://unsplash.com/license).
+
+- Hero: `/images/hero.jpg`
+
+- `/images/gallery/01.jpg` — Eberhard Grossgasteiger · Dolomites · Landscape
+- `/images/gallery/02.jpg` — Jake Young · Studio · Portrait
+- `/images/gallery/03.jpg` — Pedro Lastra · New York · Street
+- `/images/gallery/04.jpg` — Sean Pollock · London · Architecture
+- `/images/gallery/05.jpg` — Casey Horner · Redwood · Nature
+- `/images/gallery/06.jpg` — David Marcu · Banff · Landscape
+- `/images/gallery/07.jpg` — Aiony Haust · Paris · Portrait
+- `/images/gallery/08.jpg` — Andre Benz · Tokyo · Street
+- `/images/gallery/09.jpg` — Lance Anderson · Chicago · Architecture
+- `/images/gallery/10.jpg` — Luca Bravo · Norway · Nature
+- `/images/gallery/11.jpg` — Robert Lukeman · Scotland · Landscape
+- `/images/gallery/12.jpg` — Aiony Haust · Milan · Portrait
+- `/images/gallery/13.jpg` — Aleksandar Pasaric · Hong Kong · Street
+- `/images/gallery/14.jpg` — Hu Chen · Lisbon · Architecture
+- `/images/gallery/15.jpg` — Tim Sullivan · Oregon · Nature
+- `/images/gallery/16.jpg` — Dušan Smetana · Patagonia · Landscape
+- `/images/gallery/17.jpg` — Christian Ferrer · Berlin · Portrait
+- `/images/gallery/18.jpg` — Jacek Dylag · Berlin · Street
+- `/images/gallery/19.jpg` — Christopher Burns · Dubai · Architecture
+- `/images/gallery/20.jpg` — Jeremy Bishop · Sequoia · Nature
+- `/images/gallery/21.jpg` — Kalen Emsley · Alps · Landscape
+- `/images/gallery/22.jpg` — Joseph Gonzalez · Oslo · Portrait
+- `/images/gallery/23.jpg` — Alexandre St-Denis · Seoul · Street
+- `/images/gallery/24.jpg` — Nastuh Abootalebi · Valencia · Architecture
+- `/images/gallery/25.jpg` — Sean Oulashin · Iceland · Nature
+- `/images/gallery/26.jpg` — v2osk · Fog Valley · Landscape
+- `/images/gallery/27.jpg` — Good Faces · Lagos · Portrait
+- `/images/gallery/28.jpg` — Aleksandar Pasaric · London · Street
+- `/images/gallery/29.jpg` — Hu Chen · Singapore · Architecture
+- `/images/gallery/30.jpg` — v2osk · Yosemite · Nature
+- `/images/gallery/31.jpg` — Joshua Earle · Matterhorn · Landscape
+- `/images/gallery/32.jpg` — Houcine Ncib · Madrid · Portrait
+- `/images/gallery/33.jpg` — Luca Bravo · Manhattan · Street
+- `/images/gallery/34.jpg` — Daniele Colucci · Sydney · Architecture
+- `/images/gallery/35.jpg` — Sebastian Unrau · Kyoto · Nature
+- `/images/gallery/36.jpg` — Pietro De Grandi · Tuscany · Landscape
+- `/images/gallery/37.jpg` — Ian Dooley · Amsterdam · Portrait
+- `/images/gallery/38.jpg` — Willian Justen de Vasconcellos · Venice · Street
+- `/images/gallery/39.jpg` — Robert Anasch · Barcelona · Architecture
+- `/images/gallery/40.jpg` — Pine watt · Canada · Nature
+- `/images/gallery/41.jpg` — Kalen Emsley · Lake Louise · Landscape
+- `/images/gallery/42.jpg` — Jake Young · Cape Town · Portrait
+- `/images/gallery/43.jpg` — Alexandre St-Denis · Osaka · Street
+- `/images/gallery/44.jpg` — Catalin Abirajan · Rome · Architecture
+- `/images/gallery/45.jpg` — Luke Stackpoole · Wales · Nature
+- `/images/gallery/46.jpg` — Kalen Emsley · Colorado · Landscape
+- `/images/gallery/47.jpg` — Good Faces · Lisbon · Portrait
+- `/images/gallery/48.jpg` — Andre Benz · Shibuya · Street
+- `/images/gallery/49.jpg` — Alexandre St-Denis · Toronto · Architecture
+- `/images/gallery/50.jpg` — Jeremy Bishop · California · Nature
